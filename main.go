@@ -19,13 +19,6 @@ type user struct {
 	createdAt time.Time
 }
 
-var (
-	MYSQL_ID       string
-	MYSQL_PASSWORD string
-	MYSQL_PORT     string
-	MYSQL_DBNAME   string
-)
-
 func loadEnv() (string, string, string, string) {
 	if err := godotenv.Load(".env"); err != nil {
 		fmt.Println(err)
@@ -35,7 +28,7 @@ func loadEnv() (string, string, string, string) {
 }
 
 func main() {
-	MYSQL_ID, MYSQL_PASSWORD, MYSQL_PORT, MYSQL_DBNAME = loadEnv()
+	MYSQL_ID, MYSQL_PASSWORD, MYSQL_PORT, MYSQL_DBNAME := loadEnv()
 	db, err := sql.Open("mysql", MYSQL_ID+":"+MYSQL_PASSWORD+"@(127.0.1:"+MYSQL_PORT+")/"+MYSQL_DBNAME+"?parseTime=true")
 	if err != nil {
 		log.Fatal(err)
